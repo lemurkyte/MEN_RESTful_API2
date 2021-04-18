@@ -4,7 +4,7 @@ const expect = chai.expect;
 const should = chai.should();
 const chaiHttp = require('chai-http');
 const server = require('../../server');
-const Product = require('../../models/product');
+const Movie = require('../../models/movie');
 
 chai.use(chaiHttp);
 
@@ -23,9 +23,9 @@ describe('/First Test Collection', () => {
         });
     });
 
-    it('should verify that we have 0 products in the DB', (done) => {
+    it('should verify that we have 0 movies in the DB', (done) => {
         chai.request(server)
-        .get('/api/products')
+        .get('/api/movies')
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('array');
@@ -34,26 +34,27 @@ describe('/First Test Collection', () => {
         });
     });
 
-    it('should POST a valid product', (done) => {
+    it('should POST a valid movie', (done) => {
         
-        let product = {
-            name: "Test Product",
-            description: "Test Product Description",
-            price: 100,
-            inStock: true
+        let movie = {
+            title: "Test movie",
+            genre: "Test movie genre",
+            storyline: "Test movie storyline",
+            rate: 9.2,
+            year: 1986
         }
         chai.request(server)
-        .post('/api/products')
-        .send(product)
+        .post('/api/movies')
+        .send(movie)
         .end((err, res) => {
             res.should.have.status(201);
             done();
         });
     });
 
-    it('should verify that we have 1 products in the DB', (done) => {
+    it('should verify that we have 1 movies in the DB', (done) => {
         chai.request(server)
-        .get('/api/products')
+        .get('/api/movies')
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('array');

@@ -14,19 +14,21 @@ components:
       name: auth-token
 
   schemas:
-    Product:
+    Movie:
       type: object
       properties:
         id:
           type: string
-        name:
+        title:
           type: string
-        description:
+        genre:
           type: string
-        price:
+        storyline:
+          type: string
+        rate:
           type: number
-        inStock:
-          type: boolean
+        year:
+          type: number
     
     User:
       type: object
@@ -96,23 +98,23 @@ paths:
                     type: string
 
 
-  /products:
+  /movies:
     get:
-      summary: Retrieves a list of Products
-      description: Retrieves a list of products as JSON objects.
+      summary: Retrieves a list of Movies
+      description: Retrieves a list of Movies as JSON objects.
       responses:
         200:
-          description: A list of product JSON objects in an array.
+          description: A list of Movies JSON objects in an array.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/Movies"
     
     post:
-      summary: Create a new Product
-      description: Create a new Product
+      summary: Create a new Movie
+      description: Create a new Movie
       security:
         - ApiKeyAuth: []      
       requestBody:
@@ -120,20 +122,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/Movie"
 
       responses:
         201:
-          description: Product created succesfully
+          description: Movie created succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/Movie"
   
-  /products/{id}:
+  /movies/{id}:
     get:
-      summary: Specific Product
-      description: Retrieves a specific Product based on it id.
+      summary: Specific Movie
+      description: Retrieves a specific Movie based on it id.
       parameters:
         - in: path
           name: id
@@ -143,17 +145,17 @@ paths:
             type: string
       responses:
         200:
-          description: A Product in the format of a JSON object.
+          description: A Movie in the format of a JSON object.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Product"
+                  $ref: "#/components/schemas/Movie"
    
     put:
-      summary: Updates a specific Product
-      description: Updates a specific Product based on it id
+      summary: Updates a specific Movie
+      description: Updates a specific Movie based on it id
       security:
         - ApiKeyAuth: []            
       parameters:
@@ -168,19 +170,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Product"
+              $ref: "#/components/schemas/Movie"
 
       responses:
         201:
-          description: Product updated succesfully
+          description: Movie updated succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/Movie"
 
     delete:
-      summary: Deletes a specific Product
-      description: Deletes a specific Product based on it id
+      summary: Deletes a specific Movie
+      description: Deletes a specific Movie based on it id
       security:
         - ApiKeyAuth: []            
       parameters:
@@ -193,8 +195,8 @@ paths:
 
       responses:
         201:
-          description: Product deleted succesfully
+          description: Movie deleted succesfully
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Product"
+                $ref: "#/components/schemas/Movie"

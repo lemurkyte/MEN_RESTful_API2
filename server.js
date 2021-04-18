@@ -13,7 +13,7 @@ const swaggerDocument = YAML.load('./swagger.yaml');
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //import routes
-const productRoutes = require("./routes/product");
+const movieRoutes = require("./routes/movie");
 const authRoutes = require("./routes/auth");
 
 //load configuration from .env file
@@ -53,7 +53,7 @@ app.get("/api/welcome", (req,res) => {
 
 // authentication routes to secure the API endpoints
 app.use("/api/user", authRoutes); //authentication routes (register, login)
-app.use("/api/products", productRoutes); //CRUD routes
+app.use("/api/movies", movieRoutes); //CRUD routes
 
 //start up server
 const PORT = process.env.PORT || 4000;

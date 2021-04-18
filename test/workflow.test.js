@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 
 describe('User workflow tests', () => {
 
-    it('should register + login a user, create product and verify 1 in DB', (done) => {
+    it('should register + login a user, create movie and verify 1 in DB', (done) => {
 
         // 1) Register new user
         let user = {
@@ -37,19 +37,20 @@ describe('User workflow tests', () => {
                         expect(res.body.error).to.be.equal(null);                        
                         let token = res.body.data.token;
 
-                        // 3) Create new product
-                        let product =
+                        // 3) Create new movie
+                        let movie =
                         {
-                            name: "Test Product",
-                            description: "Test Product Description",
-                            price: 100,
-                            inStock: true
+                            title: "Test Movie",
+                            genre: "Test Movie genre",
+                            storyline: "Test Movie Storyline",
+                            rate: 9.2,
+                            year: 1986
                         };
 
                         chai.request(server)
-                            .post('/api/products')
+                            .post('/api/movies')
                             .set({ "auth-token": token })
-                            .send(product)
+                            .send(movie)
                             .end((err, res) => {
                                 
                                 // Asserts
@@ -57,16 +58,17 @@ describe('User workflow tests', () => {
                                 expect(res.body).to.be.a('array');
                                 expect(res.body.length).to.be.eql(1);
                                 
-                                let savedProduct = res.body[0];
-                                expect(savedProduct.name).to.be.equal(product.name);
-                                expect(savedProduct.description).to.be.equal(product.description);
-                                expect(savedProduct.price).to.be.equal(product.price);
-                                expect(savedProduct.inStock).to.be.equal(product.inStock);
+                                let savedMovie = res.body[0];
+                                expect(savedMovie.title).to.be.equal(movie.title);
+                                expect(savedMovie.genre).to.be.equal(movie.genre);
+                                expect(savedMovie.storyline).to.be.equal(movie.storyline);
+                                expect(savedMovie.rate).to.be.equal(movie.rate);
+                                expect(savedMovie.year).to.be.equal(movie.year);
 
 
-                                // 4) Verify one product in test DB
+                                // 4) Verify one movie in test DB
                                 chai.request(server)
-                                    .get('/api/products')
+                                    .get('/api/movies')
                                     .end((err, res) => {
                                         
                                         // Asserts
@@ -81,7 +83,7 @@ describe('User workflow tests', () => {
             });
     });
 
-    it('should register + login a user, create product and delete it from DB', (done) => {
+    it('should register + login a user, create movie and delete it from DB', (done) => {
 
         // 1) Register new user
         let user = {
@@ -112,19 +114,20 @@ describe('User workflow tests', () => {
                         expect(res.body.error).to.be.equal(null);                        
                         let token = res.body.data.token;
 
-                        // 3) Create new product
-                        let product =
+                        // 3) Create new movie
+                        let movie =
                         {
-                            name: "Test Product",
-                            description: "Test Product Description",
-                            price: 100,
-                            inStock: true
+                            title: "Test Movie",
+                            genre: "Test Movie genre",
+                            storyline: "Test Movie Storyline",
+                            rate: 9.2,
+                            year: 1986
                         };
 
                         chai.request(server)
-                            .post('/api/products')
+                            .post('/api/movies')
                             .set({ "auth-token": token })
-                            .send(product)
+                            .send(movie)
                             .end((err, res) => {
                                 
                                 // Asserts
@@ -132,23 +135,24 @@ describe('User workflow tests', () => {
                                 expect(res.body).to.be.a('array');
                                 expect(res.body.length).to.be.eql(1);
                                 
-                                let savedProduct = res.body[0];
-                                expect(savedProduct.name).to.be.equal(product.name);
-                                expect(savedProduct.description).to.be.equal(product.description);
-                                expect(savedProduct.price).to.be.equal(product.price);
-                                expect(savedProduct.inStock).to.be.equal(product.inStock);
+                                let savedMovie = res.body[0];
+                                expect(savedMovie.title).to.be.equal(movie.title);
+                                expect(savedMovie.genre).to.be.equal(movie.genre);
+                                expect(savedMovie.storyline).to.be.equal(movie.storyline);
+                                expect(savedMovie.rate).to.be.equal(movie.rate);
+                                expect(savedMovie.year).to.be.equal(movie.year);
 
 
-                                // 4) Delete product
+                                // 4) Delete movie
                                 chai.request(server)
-                                    .delete('/api/products/' + savedProduct._id)
+                                    .delete('/api/movies/' + savedMovie._id)
                                     .set({ "auth-token": token })
                                     .end((err, res) => {
                                         
                                         // Asserts
                                         expect(res.status).to.be.equal(200);                                        
                                         const actualVal = res.body.message;
-                                        expect(actualVal).to.be.equal('Product was deleted successfully!');        
+                                        expect(actualVal).to.be.equal('Movie was deleted successfully!');        
                                         done();
                                     });
                             });
