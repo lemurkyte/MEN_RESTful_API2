@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "mongodb-expressjs-nodejs RESTful APIE",
   "main": "server.js",
+  "engine": { 
+    "node": "14.16.1",
+    "npm": "6.14.12" 
+  },
   "scripts": {
     "start-dev": "cross-env NODE_ENV=development nodemon server.js",
     "test": "cross-env NODE_ENV=test mocha --exit",
