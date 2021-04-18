@@ -71,7 +71,7 @@ router.delete("/:id", (req, res) => {
             res.status(404).send({ message: "Cannot delete movie with id=" + id +".Maybe movie is not found!"})
         }
         else {
-            res.send({ message: "Movie was successfully deleted"})
+            res.send({ message: "Movie was deleted successfully!"})
         }
     })
     .catch(err => { res.status(500).send( { message: "Error deleting movie with id=" + id }); }) 
