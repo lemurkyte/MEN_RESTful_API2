@@ -3,23 +3,37 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const app = express();
 const { verifyToken } = require("./validation");
+
 //swager dependencies
 const swaggerUi = require('swagger-ui-express');
-const yaml = require('yamljs');
+const YAML = require('yamljs');
+
 //setup swagger
-const swaggerDefinition = yaml.load('./swagger.yaml');
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDefinition));
+const swaggerDocument = YAML.load('./swagger.yaml');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 //import routes
 const productRoutes = require("./routes/product");
 const authRoutes = require("./routes/auth");
 
-require("dotenv-flow").config();
+//load configuration from .env file
+require('dotenv-flow').config();
 
-//parse request of content-type JSON
+// middleware defitions
+// parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Handle CORS
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+//connect to the MongoDB using Mongoose ODM
 mongoose.connect
 (
     process.env.DBHOST,
@@ -27,24 +41,24 @@ mongoose.connect
         useUnifiedTopology: true,
         useNewUrlParser: true
     }
-).catch(error => console.log("Error blah blah" + error));;
+).catch(error => console.log("Error connecting to MongoDB: " + error));
 
-mongoose.connection.once("open", () => console.log("Connected to mongodb"));
+mongoose.connection.once('open', () => console.log('Connected succesfully to MongoDB'));
 
+//routes definition
+//Welcome route
+app.get("/api/welcome", (req,res) => {
+    res.status(200).send({message: "Welcome to the MEN-REST-API"});
+  }); 
 
-//routes
-app.get("/api/welcome", (req, res) => {
-    res.status(200).send({message: "Welcome to the MEN RESTful API"});
-})
+// authentication routes to secure the API endpoints
+app.use("/api/user", authRoutes); //authentication routes (register, login)
+app.use("/api/products", productRoutes); //CRUD routes
 
-//post,put,delete -> CRUD 
-app.use("/api/products", verifyToken, productRoutes);
-app.use("/api/user", authRoutes);
-
+//start up server
 const PORT = process.env.PORT || 4000;
+app.listen(PORT, function () {
+  console.log("Server is running on port:  " + PORT);
+});
 
-app.listen(PORT, function() {
-    console.log("Server is running on port: " + PORT);
-})
-
-module.exports = app; 
+module.exports = app;

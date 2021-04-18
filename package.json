@@ -4,8 +4,9 @@
   "description": "mongodb-expressjs-nodejs RESTful APIE",
   "main": "server.js",
   "scripts": {
-    "start-dev": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-dev": "cross-env NODE_ENV=development nodemon server.js",
+    "test": "cross-env NODE_ENV=test mocha --exit",
+    "start": "node server.js"
   },
   "keywords": [
     "mongodb"
@@ -21,8 +22,24 @@
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.4",
-    "mongoose": "^5.11.19",
+    "mongoose": "^5.11.16",
     "swagger-ui-express": "^4.1.6",
     "yamljs": "^0.3.0"
-  }
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.3.2"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemurkyte/MEN_RESTful_API2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lemurkyte/MEN_RESTful_API2/issues"
+  },
+  "homepage": "https://github.com/lemurkyte/MEN_RESTful_API2#readme"
 }
