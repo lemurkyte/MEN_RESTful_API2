@@ -1,15 +1,18 @@
 {
-  "name": "men-restful-api2",
+  "name": "men_restful_api2",
   "version": "1.0.0",
-  "description": "mongodb-expressjs-nodejs RESTful APIE",
+  "description": "",
   "main": "server.js",
-  "engine": {
-    "node": "15.10.0",
-    "npm": "7.5.3"
+  "directories": {
+    "test": "test"
   },
   "scripts": {
     "start-dev": "cross-env NODE_ENV=development nodemon server.js",
-    "test": "cross-env NODE_ENV=test mocha --exit"
+    "test": "cross-env NODE_ENV=test mocha --recursive --timeout=10000 --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lemurkyte/MEN_RESTful_API2.git"
   },
   "keywords": [
     "mongodb",
@@ -19,6 +22,10 @@
   ],
   "author": "ugne",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lemurkyte/MEN_RESTful_API2/issues"
+  },
+  "homepage": "https://github.com/lemurkyte/MEN_RESTful_API2#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
@@ -30,22 +37,7 @@
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.4",
     "swagger-ui-express": "^4.1.6",
+    "yaml": "^1.10.2",
     "yamljs": "^0.3.0"
-  },
-  "devDependencies": {
-    "chai": "^4.3.4",
-    "chai-http": "^4.3.0",
-    "mocha": "^8.3.2"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lemurkyte/MEN_RESTful_API2.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lemurkyte/MEN_RESTful_API2/issues"
-  },
-  "homepage": "https://github.com/lemurkyte/MEN_RESTful_API2#readme"
+  }
 }
