@@ -56,6 +56,8 @@ app.use("/api/user", authRoutes); //authentication routes (register, login)
 app.use("/api/movies", movieRoutes); //CRUD routes
 
 //start up server
+
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, function () {
   console.log("Server is running on port:  " + PORT);
