@@ -12,6 +12,6 @@ beforeEach((done) => {
 
 afterEach((done) => {
     User.deleteMany({}, function(err) {});
-    Movie.deleteMany({}, function(err) {});
+    //Movie.deleteMany({}, function(err) {});
     done();
 });

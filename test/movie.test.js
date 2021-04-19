@@ -14,7 +14,7 @@ before((done) => {
 });
 
 after((done) => {
-    Movie.deleteMany({}, function(err) {});
+   // Movie.deleteMany({}, function(err) {});
     done();
 });
 
