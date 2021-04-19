@@ -12,7 +12,7 @@ describe('User workflow tests', () => {
         let user = {
             name: "Peter Petersen",
             email: "mail@petersen.com",
-            password: "12345678912"
+            password: "123456"
         }
         chai.request(server)
             .post('/api/user/register')
@@ -29,7 +29,7 @@ describe('User workflow tests', () => {
                     .post('/api/user/login')
                     .send({
                         "email": "mail@petersen.com",
-                        "password": "12345678912"
+                        "password": "123456"
                     })
                     .end((err, res) => {
                         // Asserts                        
@@ -89,7 +89,7 @@ describe('User workflow tests', () => {
         let user = {
             name: "Peter Petersen",
             email: "mail@petersen.com",
-            password: "12345678912"
+            password: "123456"
         }
         chai.request(server)
             .post('/api/user/register')
@@ -106,7 +106,7 @@ describe('User workflow tests', () => {
                     .post('/api/user/login')
                     .send({
                         "email": "mail@petersen.com",
-                        "password": "12345678912"
+                        "password": "123456"
                     })
                     .end((err, res) => {
                         // Asserts                        
