@@ -62,6 +62,24 @@ describe('/First Test Collection', () => {
         });
     });
 
+    it('it should not POST an invalid movie', (done) => {
+        
+        let movie = {
+            title: "Test movie",
+            genre: "Horror", //should be string in stead of number
+            storyline: "Tes",
+            rate: 9.2,
+            year: 1986
+        }
+        chai.request(server)
+        .post('/api/movies')
+        .send(movie)
+        .end((err, res) => {
+            res.should.have.status(500);
+            done();  
+        });
+    });
+
 it('should verify that we have 1 movies in the DB', (done) => {
     chai.request(server)
     .get('/api/movies')
@@ -79,5 +97,44 @@ it('should test two values....', () => {
     let actualVal = 10;
 
     expect(actualVal).to.be.equal(expectedVal);
-})
-})
+});
+});
+
+//Checks if can make a valid user
+it('should create a valid user credential', (done) => {
+    let userCredentials = {
+        name: "test",
+        email: "testuser@test.com",
+        password: "123456789"
+        
+    }
+
+    chai.request(server)
+    .post('/api/user/register')
+    .send(userCredentials)
+    .end((err, res) => {
+        expect(res.status).to.be.equal(200);
+        expect(res.body.error).to.be.equal(null);
+        done();
+    }); 
+});
+
+    //Checks if can make a valid user
+    it('should check if sends correct error when sending an already existing email address ', (done) => {
+        let userCredentials = {
+            name: "test",
+            email: "testuser@test.com",
+            password: "123456789"
+            
+        }
+
+        chai.request(server)
+        .post('/api/user/register')
+        .send(userCredentials)
+        .end((err, res) => {
+            expect(res.status).to.be.equal(400);
+            expect(res.body).to.be.a('object');
+            done();
+        }); 
+    });
+

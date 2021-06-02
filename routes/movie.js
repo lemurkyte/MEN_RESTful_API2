@@ -44,7 +44,6 @@ router.get("/:id", (req, res) => {
 
 // Update Movie
 router.put("/:id", (req, res) => {
-    //router.put("/:id", (req, res) => {
         const id = req.params.id;
     
         movie.findByIdAndUpdate(id, req.body)
